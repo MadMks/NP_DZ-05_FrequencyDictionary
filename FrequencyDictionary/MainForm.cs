@@ -29,7 +29,9 @@ namespace FrequencyDictionary
 
         private string CreateUriWithProtocol(string uriStr)
         {
-            throw new NotImplementedException();
+            uriStr = uriStr.Insert(0, "http://");
+
+            return uriStr;
         }
 
         private bool IsThereProtocol(string uriStr)
