@@ -49,19 +49,19 @@ namespace FrequencyDictionary
                 byte[] data = webClient.DownloadData(RequestUriString);
                 string page = Encoding.Default.GetString(data);
                 
-                string pattern = ">(.[^(<|>)]*)<";
+                string pattern = ">(?!#)(.[^(<|>)]*)<";
 
                 MatchCollection matchCollection = Regex.Matches(page, pattern); 
                 foreach (Match match in matchCollection)
                 {
-                    //Console.WriteLine(match.Groups[1].Value);// тут каждая строка
+                    Console.WriteLine(match.Groups[1].Value);// тут каждая строка
                     string allString = match.Groups[1].Value.ToString();
                     string splits = ".,:;-()!?\t \"\'_&";
                     string[] words = allString.Split(splits.ToCharArray());
 
                     foreach (string word in words)
                     {
-                        Console.WriteLine(word);
+                        //Console.WriteLine(word);
                     }
                 }
             }
