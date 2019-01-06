@@ -15,6 +15,8 @@ namespace FrequencyDictionary
 {
     public partial class MainForm : Form
     {
+        private Dictionary<string, int> wordCountPairs = null;
+
         public string RequestUriString
         {
             get
@@ -31,39 +33,69 @@ namespace FrequencyDictionary
         public MainForm()
         {
             InitializeComponent();
+
+            // HACK: dev
+            this.ParsingUriPage();
         }
 
         private void buttonParse_Click(object sender, EventArgs e)
         {
             if (this.IsUriCorrect())
             {
-                //HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
+                //this.ParsingUriPage();
+            }
+        }
 
-                //HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-                //StreamReader reader = new StreamReader(
-                //    response.GetResponseStream());
-                //textBoxDictionary.Text = reader.ReadToEnd();
-                //string page = reader.ReadToEnd();
+        private void ParsingUriPage()
+        {
+            this.textBoxUrl.Text = "https://www.google.com.ua/";   // HACK: dev
 
-                WebClient webClient = new WebClient();
-                byte[] data = webClient.DownloadData(RequestUriString);
-                string page = Encoding.Default.GetString(data);
-                
-                string pattern = ">(?!#)(.[^(<|>)]*)<";
+            wordCountPairs = new Dictionary<string, int>();
 
-                MatchCollection matchCollection = Regex.Matches(page, pattern); 
-                foreach (Match match in matchCollection)
+            //HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
+
+            //HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+            //StreamReader reader = new StreamReader(
+            //    response.GetResponseStream());
+            //textBoxDictionary.Text = reader.ReadToEnd();
+            //string page = reader.ReadToEnd();
+
+            WebClient webClient = new WebClient();
+            byte[] data = webClient.DownloadData(RequestUriString);
+            string page = Encoding.Default.GetString(data);
+
+            string pattern = @">(?!#|[ ]|\.)(.[^(<|>)]*)<";
+
+            MatchCollection matchCollection = Regex.Matches(page, pattern);
+            foreach (Match match in matchCollection)
+            {
+                //Console.WriteLine(match.Groups[1].Value);// тут каждая строка
+                string allString = match.Groups[1].Value.ToString();
+                string splits = ".,:;-()!?\t \"\'_&";
+                string[] words = allString.Split(splits.ToCharArray());
+
+                foreach (string w in words)
                 {
-                    Console.WriteLine(match.Groups[1].Value);// тут каждая строка
-                    string allString = match.Groups[1].Value.ToString();
-                    string splits = ".,:;-()!?\t \"\'_&";
-                    string[] words = allString.Split(splits.ToCharArray());
+                    string word = w.Trim();
+                    //Console.WriteLine(word);
+                    //if (word.Length == 0)
+                    //{
+                    //    continue;
+                    //}
+                    if (String.IsNullOrEmpty(word)) { continue; }
 
-                    foreach (string word in words)
+                    int count = 0;
+                    if (wordCountPairs.Keys.Contains(word))
                     {
-                        //Console.WriteLine(word);
+                        count = wordCountPairs[word];
                     }
+                    wordCountPairs[word] = ++count;
                 }
+            }
+
+            foreach (KeyValuePair<string, int> item in wordCountPairs)
+            {
+                Console.WriteLine("word: " + item.Key + " | " + item.Value);
             }
         }
 
