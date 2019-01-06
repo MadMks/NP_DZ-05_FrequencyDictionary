@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -27,23 +28,6 @@ namespace FrequencyDictionary
             }
         }
 
-        private string CreateUriWithProtocol(string uriStr)
-        {
-            uriStr = uriStr.Insert(0, "http://");
-
-            return uriStr;
-        }
-
-        private bool IsThereProtocol(string uriStr)
-        {
-            if (uriStr.StartsWith("http://") || uriStr.StartsWith("https://"))
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         public MainForm()
         {
             InitializeComponent();
@@ -51,15 +35,35 @@ namespace FrequencyDictionary
 
         private void buttonParse_Click(object sender, EventArgs e)
         {
-            // TODO: проверить введенный Url
             if (this.IsUriCorrect())
             {
-                HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
+                //HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
 
-                HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-                StreamReader reader = new StreamReader(
-                    response.GetResponseStream());
-                textBoxDictionary.Text = reader.ReadToEnd();
+                //HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+                //StreamReader reader = new StreamReader(
+                //    response.GetResponseStream());
+                //textBoxDictionary.Text = reader.ReadToEnd();
+                //string page = reader.ReadToEnd();
+
+                WebClient webClient = new WebClient();
+                byte[] data = webClient.DownloadData(RequestUriString);
+                string page = Encoding.Default.GetString(data);
+                
+                string pattern = ">(.[^(<|>)]*)<";
+
+                MatchCollection matchCollection = Regex.Matches(page, pattern); 
+                foreach (Match match in matchCollection)
+                {
+                    //Console.WriteLine(match.Groups[1].Value);// тут каждая строка
+                    string allString = match.Groups[1].Value.ToString();
+                    string splits = ".,:;-()!?\t \"\'_&";
+                    string[] words = allString.Split(splits.ToCharArray());
+
+                    foreach (string word in words)
+                    {
+                        Console.WriteLine(word);
+                    }
+                }
             }
         }
 
@@ -79,6 +83,23 @@ namespace FrequencyDictionary
             }
 
             return true;
+        }
+
+        private string CreateUriWithProtocol(string uriStr)
+        {
+            uriStr = uriStr.Insert(0, "http://");
+
+            return uriStr;
+        }
+
+        private bool IsThereProtocol(string uriStr)
+        {
+            if (uriStr.StartsWith("http://") || uriStr.StartsWith("https://"))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
