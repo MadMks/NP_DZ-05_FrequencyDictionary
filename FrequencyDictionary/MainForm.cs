@@ -14,17 +14,32 @@ namespace FrequencyDictionary
 {
     public partial class MainForm : Form
     {
-        private string requestUriString = null;
-
         public string RequestUriString
         {
             get
             {
-                // TODO преобразования строки.
+                if (this.IsThereProtocol(this.textBoxUrl.Text))
+                {
+                    return this.textBoxUrl.Text;
+                }
 
-                return this.textBoxUrl.Text;
+                return CreateUriWithProtocol(this.textBoxUrl.Text);
+            }
+        }
+
+        private string CreateUriWithProtocol(string uriStr)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool IsThereProtocol(string uriStr)
+        {
+            if (uriStr.StartsWith("http://") || uriStr.StartsWith("https://"))
+            {
+                return true;
             }
 
+            return false;
         }
 
         public MainForm()
@@ -57,6 +72,8 @@ namespace FrequencyDictionary
             else if (textBoxUrl.Text.Length < 4)
             {
                 MessageBox.Show("Ссылка некорректная!", "Ошибка");
+
+                return false;
             }
 
             return true;
