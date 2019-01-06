@@ -31,7 +31,7 @@
             this.labelUrl = new System.Windows.Forms.Label();
             this.textBoxUrl = new System.Windows.Forms.TextBox();
             this.buttonParse = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBoxDictionary = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // labelUrl
@@ -58,21 +58,23 @@
             this.buttonParse.TabIndex = 2;
             this.buttonParse.Text = "Parse";
             this.buttonParse.UseVisualStyleBackColor = true;
+            this.buttonParse.Click += new System.EventHandler(this.buttonParse_Click);
             // 
-            // textBox2
+            // textBoxDictionary
             // 
-            this.textBox2.Location = new System.Drawing.Point(12, 60);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(516, 281);
-            this.textBox2.TabIndex = 3;
+            this.textBoxDictionary.Location = new System.Drawing.Point(12, 60);
+            this.textBoxDictionary.Multiline = true;
+            this.textBoxDictionary.Name = "textBoxDictionary";
+            this.textBoxDictionary.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxDictionary.Size = new System.Drawing.Size(516, 281);
+            this.textBoxDictionary.TabIndex = 3;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(544, 353);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBoxDictionary);
             this.Controls.Add(this.buttonParse);
             this.Controls.Add(this.textBoxUrl);
             this.Controls.Add(this.labelUrl);
@@ -90,7 +92,7 @@
         private System.Windows.Forms.Label labelUrl;
         private System.Windows.Forms.TextBox textBoxUrl;
         private System.Windows.Forms.Button buttonParse;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBoxDictionary;
     }
 }
 
