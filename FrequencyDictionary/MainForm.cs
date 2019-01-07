@@ -104,6 +104,12 @@ namespace FrequencyDictionary
         /// <returns>Текст страницы (указанной в textBox)</returns>
         private string GetPageText()
         {
+            this.statusStrip.Invoke(new Action(() => 
+            {
+                //this.toolStripProgressBar.Style = ProgressBarStyle.Marquee;
+                //this.toolStripProgressBar.PerformStep();
+            }));
+
             HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
 
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;

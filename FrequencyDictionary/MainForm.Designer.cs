@@ -34,6 +34,10 @@
             this.listBoxDictionary = new System.Windows.Forms.ListBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.progressBarLoadPage = new System.Windows.Forms.ToolStripProgressBar();
+            this.toolStripStatusLabelLoadPage = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelLoadWords = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelEmpty = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,6 +78,10 @@
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabelLoadPage,
+            this.progressBarLoadPage,
+            this.toolStripStatusLabelEmpty,
+            this.toolStripStatusLabelLoadWords,
             this.toolStripProgressBar});
             this.statusStrip.Location = new System.Drawing.Point(0, 294);
             this.statusStrip.Name = "statusStrip";
@@ -85,6 +93,29 @@
             // 
             this.toolStripProgressBar.Name = "toolStripProgressBar";
             this.toolStripProgressBar.Size = new System.Drawing.Size(100, 16);
+            // 
+            // progressBarLoadPage
+            // 
+            this.progressBarLoadPage.Name = "progressBarLoadPage";
+            this.progressBarLoadPage.Size = new System.Drawing.Size(100, 16);
+            // 
+            // toolStripStatusLabelLoadPage
+            // 
+            this.toolStripStatusLabelLoadPage.Name = "toolStripStatusLabelLoadPage";
+            this.toolStripStatusLabelLoadPage.Size = new System.Drawing.Size(109, 17);
+            this.toolStripStatusLabelLoadPage.Text = "Загрузка страницы:";
+            // 
+            // toolStripStatusLabelLoadWords
+            // 
+            this.toolStripStatusLabelLoadWords.Name = "toolStripStatusLabelLoadWords";
+            this.toolStripStatusLabelLoadWords.Size = new System.Drawing.Size(83, 17);
+            this.toolStripStatusLabelLoadWords.Text = "Загрузка слов:";
+            // 
+            // toolStripStatusLabelEmpty
+            // 
+            this.toolStripStatusLabelEmpty.Name = "toolStripStatusLabelEmpty";
+            this.toolStripStatusLabelEmpty.Size = new System.Drawing.Size(31, 17);
+            this.toolStripStatusLabelEmpty.Text = "        ";
             // 
             // MainForm
             // 
@@ -115,6 +146,10 @@
         private System.Windows.Forms.ListBox listBoxDictionary;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelLoadPage;
+        private System.Windows.Forms.ToolStripProgressBar progressBarLoadPage;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEmpty;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelLoadWords;
     }
 }
 
