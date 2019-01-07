@@ -146,11 +146,10 @@ namespace FrequencyDictionary
                 this.progressBarLoadPage.Style = ProgressBarStyle.Marquee;
             }));
 
-
             HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
 
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.Default);
+            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
 
             string page = reader.ReadToEnd();
 
