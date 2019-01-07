@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -35,6 +36,7 @@ namespace FrequencyDictionary
             InitializeComponent();
 
             // HACK: dev
+            this.progressBarLoadPage.Style = ProgressBarStyle.Blocks;
             //this.toolStripProgressBar.Style = ProgressBarStyle.Blocks;
             //this.ParsingUriPage();
             Task.Factory.StartNew(() => ParsingUriPage());
@@ -65,7 +67,7 @@ namespace FrequencyDictionary
                 string allString = match.Groups[1].Value.ToString();
                 string splits = ".,:;-()!?\t \"\'_&";
                 string[] words = allString.Split(splits.ToCharArray());
-
+                
                 foreach (string w in words)
                 {
                     string word = w.Trim();
@@ -106,8 +108,7 @@ namespace FrequencyDictionary
         {
             this.statusStrip.Invoke(new Action(() => 
             {
-                //this.toolStripProgressBar.Style = ProgressBarStyle.Marquee;
-                //this.toolStripProgressBar.PerformStep();
+                this.progressBarLoadPage.Style = ProgressBarStyle.Marquee;
             }));
 
             HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
@@ -118,6 +119,12 @@ namespace FrequencyDictionary
             string page = reader.ReadToEnd();
 
             reader.Close();
+
+            this.statusStrip.Invoke(new Action(() =>
+            {
+                this.progressBarLoadPage.Style = ProgressBarStyle.Blocks;
+            }));
+
             return page;
         }
 
