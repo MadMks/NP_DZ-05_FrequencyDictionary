@@ -33,7 +33,7 @@
             this.buttonParse = new System.Windows.Forms.Button();
             this.listBoxDictionary = new System.Windows.Forms.ListBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.progressBarLoadWords = new System.Windows.Forms.ToolStripProgressBar();
             this.progressBarLoadPage = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabelLoadPage = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelLoadWords = new System.Windows.Forms.ToolStripStatusLabel();
@@ -82,17 +82,17 @@
             this.progressBarLoadPage,
             this.toolStripStatusLabelEmpty,
             this.toolStripStatusLabelLoadWords,
-            this.toolStripProgressBar});
+            this.progressBarLoadWords});
             this.statusStrip.Location = new System.Drawing.Point(0, 294);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(544, 22);
             this.statusStrip.TabIndex = 5;
             this.statusStrip.Text = "statusStrip1";
             // 
-            // toolStripProgressBar
+            // progressBarLoadWords
             // 
-            this.toolStripProgressBar.Name = "toolStripProgressBar";
-            this.toolStripProgressBar.Size = new System.Drawing.Size(100, 16);
+            this.progressBarLoadWords.Name = "progressBarLoadWords";
+            this.progressBarLoadWords.Size = new System.Drawing.Size(100, 16);
             // 
             // progressBarLoadPage
             // 
@@ -145,7 +145,7 @@
         private System.Windows.Forms.Button buttonParse;
         private System.Windows.Forms.ListBox listBoxDictionary;
         private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
+        private System.Windows.Forms.ToolStripProgressBar progressBarLoadWords;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelLoadPage;
         private System.Windows.Forms.ToolStripProgressBar progressBarLoadPage;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEmpty;

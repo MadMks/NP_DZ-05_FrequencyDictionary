@@ -37,6 +37,7 @@ namespace FrequencyDictionary
 
             // HACK: dev
             this.progressBarLoadPage.Style = ProgressBarStyle.Blocks;
+            this.progressBarLoadWords.Step = 1;
             //this.toolStripProgressBar.Style = ProgressBarStyle.Blocks;
             //this.ParsingUriPage();
             Task.Factory.StartNew(() => ParsingUriPage());
@@ -62,12 +63,19 @@ namespace FrequencyDictionary
             string pattern = @">(?!#|[ ]|\.)(.[^(<|>)]*)<";
 
             MatchCollection matchCollection = Regex.Matches(page, pattern);
+            // Установка максимума прогресБара.
+            this.statusStrip.Invoke(new Action(() =>
+            {
+                this.progressBarLoadWords.Maximum = matchCollection.Count;
+            }));
+            // Идем по предложениям.
             foreach (Match match in matchCollection)
             {
                 string allString = match.Groups[1].Value.ToString();
                 string splits = ".,:;-()!?\t \"\'_&";
                 string[] words = allString.Split(splits.ToCharArray());
-                
+
+                // Добавления каждого слова в предложении.
                 foreach (string w in words)
                 {
                     string word = w.Trim();
@@ -79,9 +87,9 @@ namespace FrequencyDictionary
                     }
 
                     CountRepeatedWords(word);
-
-                    this.statusStrip.Invoke(new Action(() => { this.toolStripProgressBar.PerformStep(); }));
                 }
+
+                this.statusStrip.Invoke(new Action(() => { this.progressBarLoadWords.PerformStep(); }));
             }
 
             this.listBoxDictionary.Invoke(new Action(AddWordsToList));
