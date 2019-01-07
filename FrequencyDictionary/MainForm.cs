@@ -42,11 +42,19 @@ namespace FrequencyDictionary
         {
             this.progressBarLoadPage.Style = ProgressBarStyle.Blocks;
             this.progressBarLoadWords.Step = 1;
+
+            this.Shown += MainForm_Shown;
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            this.textBoxUrl.Focus();
         }
 
         private void buttonParse_Click(object sender, EventArgs e)
         {
             this.listBoxDictionary.Items.Clear();
+            this.progressBarLoadWords.Value = 0;
 
             if (this.IsUriCorrect())
             {

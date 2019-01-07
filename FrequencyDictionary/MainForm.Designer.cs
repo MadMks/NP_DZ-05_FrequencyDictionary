@@ -73,7 +73,7 @@
             this.listBoxDictionary.Location = new System.Drawing.Point(14, 53);
             this.listBoxDictionary.Name = "listBoxDictionary";
             this.listBoxDictionary.Size = new System.Drawing.Size(515, 225);
-            this.listBoxDictionary.TabIndex = 4;
+            this.listBoxDictionary.TabIndex = 0;
             // 
             // statusStrip
             // 
