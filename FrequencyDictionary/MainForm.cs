@@ -16,7 +16,7 @@ namespace FrequencyDictionary
 {
     public partial class MainForm : Form
     {
-        private SortedDictionary<string, int> wordCountPairs = null;
+        private Dictionary<string, int> wordCountPairs = null;
 
         public string RequestUriString
         {
@@ -69,7 +69,7 @@ namespace FrequencyDictionary
                 this.listBoxDictionary.UseWaitCursor = true;
             }));
 
-            wordCountPairs = new SortedDictionary<string, int>();
+            wordCountPairs = new Dictionary<string, int>();
             string page = GetPageText();
             string pattern = @">(?!#|[ ]|\.)(.[^(<|>)]*)<";
 
@@ -149,7 +149,7 @@ namespace FrequencyDictionary
             HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
 
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.Default);
 
             string page = reader.ReadToEnd();
 
@@ -169,7 +169,10 @@ namespace FrequencyDictionary
         /// </summary>
         private void AddWordsToList()
         {
-            foreach (KeyValuePair<string, int> item in wordCountPairs)
+            // Сортируем по значению.
+            var sorted = wordCountPairs.OrderByDescending(x => x.Value);
+
+            foreach (KeyValuePair<string, int> item in sorted)
             {
                 this.listBoxDictionary.Items.Add(item.Key + " : " + item.Value);
             }
