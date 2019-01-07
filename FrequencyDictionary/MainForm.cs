@@ -35,28 +35,32 @@ namespace FrequencyDictionary
         {
             InitializeComponent();
 
-            // HACK: dev
+            this.Load += MainForm_Load;
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
             this.progressBarLoadPage.Style = ProgressBarStyle.Blocks;
             this.progressBarLoadWords.Step = 1;
-            //this.toolStripProgressBar.Style = ProgressBarStyle.Blocks;
-            //this.ParsingUriPage();
-            Task.Factory.StartNew(() => ParsingUriPage());
         }
 
         private void buttonParse_Click(object sender, EventArgs e)
         {
+            this.listBoxDictionary.Items.Clear();
+
             if (this.IsUriCorrect())
             {
-                //this.ParsingUriPage();
+                Task.Factory.StartNew(() => ParsingUriPage());
             }
         }
 
         private void ParsingUriPage()
         {
-            // HACK: dev
-            this.textBoxUrl.Invoke(new Action(() => { this.textBoxUrl.Text = "https://www.google.com.ua/"; }));
 
-            
+            this.textBoxUrl.Invoke(new Action(() => {
+                this.buttonParse.Enabled = false;
+                this.listBoxDictionary.UseWaitCursor = true;
+            }));
 
             wordCountPairs = new SortedDictionary<string, int>();
             string page = GetPageText();
@@ -76,23 +80,36 @@ namespace FrequencyDictionary
                 string[] words = allString.Split(splits.ToCharArray());
 
                 // Добавления каждого слова в предложении.
-                foreach (string w in words)
-                {
-                    string word = w.Trim();
-                    word = word.ToLower();
-
-                    if (!this.IsWord(word))
-                    {
-                        continue;
-                    }
-
-                    CountRepeatedWords(word);
-                }
+                AddEachWord(words);
 
                 this.statusStrip.Invoke(new Action(() => { this.progressBarLoadWords.PerformStep(); }));
             }
 
             this.listBoxDictionary.Invoke(new Action(AddWordsToList));
+            this.textBoxUrl.Invoke(new Action(() => {
+                this.buttonParse.Enabled = true;
+                this.listBoxDictionary.UseWaitCursor = false;
+            }));
+        }
+
+        /// <summary>
+        /// Добавления каждого слова в предложении.
+        /// </summary>
+        /// <param name="words">Предложени/строка/слово.</param>
+        private void AddEachWord(string[] words)
+        {
+            foreach (string w in words)
+            {
+                string word = w.Trim();
+                word = word.ToLower();
+
+                if (!this.IsWord(word))
+                {
+                    continue;
+                }
+
+                CountRepeatedWords(word);
+            }
         }
 
         /// <summary>
@@ -119,6 +136,7 @@ namespace FrequencyDictionary
                 this.progressBarLoadPage.Style = ProgressBarStyle.Marquee;
             }));
 
+
             HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
 
             HttpWebResponse response = request.GetResponse() as HttpWebResponse;
@@ -127,6 +145,7 @@ namespace FrequencyDictionary
             string page = reader.ReadToEnd();
 
             reader.Close();
+
 
             this.statusStrip.Invoke(new Action(() =>
             {
