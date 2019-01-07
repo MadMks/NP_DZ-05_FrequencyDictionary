@@ -15,7 +15,7 @@ namespace FrequencyDictionary
 {
     public partial class MainForm : Form
     {
-        private Dictionary<string, int> wordCountPairs = null;
+        private SortedDictionary<string, int> wordCountPairs = null;
 
         public string RequestUriString
         {
@@ -50,7 +50,7 @@ namespace FrequencyDictionary
         {
             this.textBoxUrl.Text = "https://www.google.com.ua/";   // HACK: dev
 
-            wordCountPairs = new Dictionary<string, int>();
+            wordCountPairs = new SortedDictionary<string, int>();
 
             HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
 
@@ -77,26 +77,45 @@ namespace FrequencyDictionary
                 foreach (string w in words)
                 {
                     string word = w.Trim();
-                    //Console.WriteLine(word);
-                    //if (word.Length == 0)
-                    //{
-                    //    continue;
-                    //}
-                    if (String.IsNullOrEmpty(word)) { continue; }
+                    word = word.ToLower();
 
-                    int count = 0;
-                    if (wordCountPairs.Keys.Contains(word))
+
+                    if (!this.IsWord(word))
                     {
-                        count = wordCountPairs[word];
+                        continue;
                     }
-                    wordCountPairs[word] = ++count;
+
+                    if (!wordCountPairs.Keys.Contains(word))
+                    {
+                        wordCountPairs[word] = 0;
+                    }
+                    wordCountPairs[word] = ++wordCountPairs[word];
                 }
             }
 
+            //wordCountPairs.s
+
+            //// TODO: dev
             foreach (KeyValuePair<string, int> item in wordCountPairs)
             {
                 Console.WriteLine("word: " + item.Key + " | " + item.Value);
+                this.listBoxDictionary.Items.Add(item.Key + " : " + item.Value);
             }
+        }
+
+        private bool IsWord(string word)
+        {
+            if (String.IsNullOrEmpty(word))
+            {
+                return false;
+            }
+
+            if (Int32.TryParse(word, out int i))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private bool IsUriCorrect()

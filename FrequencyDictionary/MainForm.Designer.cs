@@ -32,6 +32,7 @@
             this.textBoxUrl = new System.Windows.Forms.TextBox();
             this.buttonParse = new System.Windows.Forms.Button();
             this.textBoxDictionary = new System.Windows.Forms.TextBox();
+            this.listBoxDictionary = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // labelUrl
@@ -66,14 +67,23 @@
             this.textBoxDictionary.Multiline = true;
             this.textBoxDictionary.Name = "textBoxDictionary";
             this.textBoxDictionary.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxDictionary.Size = new System.Drawing.Size(516, 281);
+            this.textBoxDictionary.Size = new System.Drawing.Size(516, 85);
             this.textBoxDictionary.TabIndex = 3;
+            // 
+            // listBoxDictionary
+            // 
+            this.listBoxDictionary.FormattingEnabled = true;
+            this.listBoxDictionary.Location = new System.Drawing.Point(13, 152);
+            this.listBoxDictionary.Name = "listBoxDictionary";
+            this.listBoxDictionary.Size = new System.Drawing.Size(515, 186);
+            this.listBoxDictionary.TabIndex = 4;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(544, 353);
+            this.Controls.Add(this.listBoxDictionary);
             this.Controls.Add(this.textBoxDictionary);
             this.Controls.Add(this.buttonParse);
             this.Controls.Add(this.textBoxUrl);
@@ -93,6 +103,7 @@
         private System.Windows.Forms.TextBox textBoxUrl;
         private System.Windows.Forms.Button buttonParse;
         private System.Windows.Forms.TextBox textBoxDictionary;
+        private System.Windows.Forms.ListBox listBoxDictionary;
     }
 }
 
