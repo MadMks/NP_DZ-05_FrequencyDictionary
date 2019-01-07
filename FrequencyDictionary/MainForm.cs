@@ -64,8 +64,7 @@ namespace FrequencyDictionary
 
         private void ParsingUriPage()
         {
-
-            this.textBoxUrl.Invoke(new Action(() => {
+            this.Invoke(new Action(() => {
                 this.buttonParse.Enabled = false;
                 this.listBoxDictionary.UseWaitCursor = true;
             }));
@@ -94,9 +93,12 @@ namespace FrequencyDictionary
             }
 
             this.listBoxDictionary.Invoke(new Action(AddWordsToList));
-            this.textBoxUrl.Invoke(new Action(() => {
+
+
+            this.Invoke(new Action(() => {
                 this.buttonParse.Enabled = true;
                 this.listBoxDictionary.UseWaitCursor = false;
+                this.textBoxUrl.Focus();
             }));
         }
 
