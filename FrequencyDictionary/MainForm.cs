@@ -35,7 +35,9 @@ namespace FrequencyDictionary
             InitializeComponent();
 
             // HACK: dev
-            this.ParsingUriPage();
+            //this.toolStripProgressBar.Style = ProgressBarStyle.Blocks;
+            //this.ParsingUriPage();
+            Task.Factory.StartNew(() => ParsingUriPage());
         }
 
         private void buttonParse_Click(object sender, EventArgs e)
@@ -48,28 +50,18 @@ namespace FrequencyDictionary
 
         private void ParsingUriPage()
         {
-            this.textBoxUrl.Text = "https://www.google.com.ua/";   // HACK: dev
+            // HACK: dev
+            this.textBoxUrl.Invoke(new Action(() => { this.textBoxUrl.Text = "https://www.google.com.ua/"; }));
+
+            
 
             wordCountPairs = new SortedDictionary<string, int>();
-
-            HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
-
-            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.Default);
-            //textBoxDictionary.Text = reader.ReadToEnd();
-            string page = reader.ReadToEnd();
-
-            reader.Close();
-            //WebClient webClient = new WebClient();
-            //byte[] data = webClient.DownloadData(RequestUriString);
-            //string page = Encoding.Default.GetString(data);
-
+            string page = GetPageText();
             string pattern = @">(?!#|[ ]|\.)(.[^(<|>)]*)<";
 
             MatchCollection matchCollection = Regex.Matches(page, pattern);
             foreach (Match match in matchCollection)
             {
-                //Console.WriteLine(match.Groups[1].Value);// тут каждая строка
                 string allString = match.Groups[1].Value.ToString();
                 string splits = ".,:;-()!?\t \"\'_&";
                 string[] words = allString.Split(splits.ToCharArray());
@@ -79,26 +71,57 @@ namespace FrequencyDictionary
                     string word = w.Trim();
                     word = word.ToLower();
 
-
                     if (!this.IsWord(word))
                     {
                         continue;
                     }
 
-                    if (!wordCountPairs.Keys.Contains(word))
-                    {
-                        wordCountPairs[word] = 0;
-                    }
-                    wordCountPairs[word] = ++wordCountPairs[word];
+                    CountRepeatedWords(word);
+
+                    this.statusStrip.Invoke(new Action(() => { this.toolStripProgressBar.PerformStep(); }));
                 }
             }
 
-            //wordCountPairs.s
+            this.listBoxDictionary.Invoke(new Action(AddWordsToList));
+        }
 
-            //// TODO: dev
+        /// <summary>
+        /// Считаем слова.
+        /// </summary>
+        /// <param name="word">Слово.</param>
+        private void CountRepeatedWords(string word)
+        {
+            if (!wordCountPairs.Keys.Contains(word))
+            {
+                wordCountPairs[word] = 0;
+            }
+            wordCountPairs[word] = ++wordCountPairs[word];
+        }
+
+        /// <summary>
+        /// Получить текст запрашиваемой страницы.
+        /// </summary>
+        /// <returns>Текст страницы (указанной в textBox)</returns>
+        private string GetPageText()
+        {
+            HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
+
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.Default);
+
+            string page = reader.ReadToEnd();
+
+            reader.Close();
+            return page;
+        }
+
+        /// <summary>
+        /// Добавить слова в listBox.
+        /// </summary>
+        private void AddWordsToList()
+        {
             foreach (KeyValuePair<string, int> item in wordCountPairs)
             {
-                Console.WriteLine("word: " + item.Key + " | " + item.Value);
                 this.listBoxDictionary.Items.Add(item.Key + " : " + item.Value);
             }
         }

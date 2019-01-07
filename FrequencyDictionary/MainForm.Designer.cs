@@ -31,8 +31,10 @@
             this.labelUrl = new System.Windows.Forms.Label();
             this.textBoxUrl = new System.Windows.Forms.TextBox();
             this.buttonParse = new System.Windows.Forms.Button();
-            this.textBoxDictionary = new System.Windows.Forms.TextBox();
             this.listBoxDictionary = new System.Windows.Forms.ListBox();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripProgressBar = new System.Windows.Forms.ToolStripProgressBar();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelUrl
@@ -53,7 +55,7 @@
             // 
             // buttonParse
             // 
-            this.buttonParse.Location = new System.Drawing.Point(453, 19);
+            this.buttonParse.Location = new System.Drawing.Point(454, 19);
             this.buttonParse.Name = "buttonParse";
             this.buttonParse.Size = new System.Drawing.Size(75, 23);
             this.buttonParse.TabIndex = 2;
@@ -61,30 +63,36 @@
             this.buttonParse.UseVisualStyleBackColor = true;
             this.buttonParse.Click += new System.EventHandler(this.buttonParse_Click);
             // 
-            // textBoxDictionary
-            // 
-            this.textBoxDictionary.Location = new System.Drawing.Point(12, 60);
-            this.textBoxDictionary.Multiline = true;
-            this.textBoxDictionary.Name = "textBoxDictionary";
-            this.textBoxDictionary.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxDictionary.Size = new System.Drawing.Size(516, 85);
-            this.textBoxDictionary.TabIndex = 3;
-            // 
             // listBoxDictionary
             // 
             this.listBoxDictionary.FormattingEnabled = true;
-            this.listBoxDictionary.Location = new System.Drawing.Point(13, 152);
+            this.listBoxDictionary.Location = new System.Drawing.Point(14, 53);
             this.listBoxDictionary.Name = "listBoxDictionary";
-            this.listBoxDictionary.Size = new System.Drawing.Size(515, 186);
+            this.listBoxDictionary.Size = new System.Drawing.Size(515, 225);
             this.listBoxDictionary.TabIndex = 4;
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripProgressBar});
+            this.statusStrip.Location = new System.Drawing.Point(0, 294);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(544, 22);
+            this.statusStrip.TabIndex = 5;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // toolStripProgressBar
+            // 
+            this.toolStripProgressBar.Name = "toolStripProgressBar";
+            this.toolStripProgressBar.Size = new System.Drawing.Size(100, 16);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 353);
+            this.ClientSize = new System.Drawing.Size(544, 316);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.listBoxDictionary);
-            this.Controls.Add(this.textBoxDictionary);
             this.Controls.Add(this.buttonParse);
             this.Controls.Add(this.textBoxUrl);
             this.Controls.Add(this.labelUrl);
@@ -92,6 +100,8 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "Частотный словарь";
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -102,8 +112,9 @@
         private System.Windows.Forms.Label labelUrl;
         private System.Windows.Forms.TextBox textBoxUrl;
         private System.Windows.Forms.Button buttonParse;
-        private System.Windows.Forms.TextBox textBoxDictionary;
         private System.Windows.Forms.ListBox listBoxDictionary;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripProgressBar toolStripProgressBar;
     }
 }
 
