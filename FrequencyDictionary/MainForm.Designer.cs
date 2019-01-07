@@ -33,11 +33,11 @@
             this.buttonParse = new System.Windows.Forms.Button();
             this.listBoxDictionary = new System.Windows.Forms.ListBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.progressBarLoadWords = new System.Windows.Forms.ToolStripProgressBar();
-            this.progressBarLoadPage = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabelLoadPage = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelLoadWords = new System.Windows.Forms.ToolStripStatusLabel();
+            this.progressBarLoadPage = new System.Windows.Forms.ToolStripProgressBar();
             this.toolStripStatusLabelEmpty = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelLoadWords = new System.Windows.Forms.ToolStripStatusLabel();
+            this.progressBarLoadWords = new System.Windows.Forms.ToolStripProgressBar();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -86,18 +86,9 @@
             this.statusStrip.Location = new System.Drawing.Point(0, 294);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(544, 22);
+            this.statusStrip.SizingGrip = false;
             this.statusStrip.TabIndex = 5;
             this.statusStrip.Text = "statusStrip1";
-            // 
-            // progressBarLoadWords
-            // 
-            this.progressBarLoadWords.Name = "progressBarLoadWords";
-            this.progressBarLoadWords.Size = new System.Drawing.Size(100, 16);
-            // 
-            // progressBarLoadPage
-            // 
-            this.progressBarLoadPage.Name = "progressBarLoadPage";
-            this.progressBarLoadPage.Size = new System.Drawing.Size(100, 16);
             // 
             // toolStripStatusLabelLoadPage
             // 
@@ -105,17 +96,27 @@
             this.toolStripStatusLabelLoadPage.Size = new System.Drawing.Size(109, 17);
             this.toolStripStatusLabelLoadPage.Text = "Загрузка страницы:";
             // 
-            // toolStripStatusLabelLoadWords
+            // progressBarLoadPage
             // 
-            this.toolStripStatusLabelLoadWords.Name = "toolStripStatusLabelLoadWords";
-            this.toolStripStatusLabelLoadWords.Size = new System.Drawing.Size(83, 17);
-            this.toolStripStatusLabelLoadWords.Text = "Загрузка слов:";
+            this.progressBarLoadPage.Name = "progressBarLoadPage";
+            this.progressBarLoadPage.Size = new System.Drawing.Size(100, 16);
             // 
             // toolStripStatusLabelEmpty
             // 
             this.toolStripStatusLabelEmpty.Name = "toolStripStatusLabelEmpty";
             this.toolStripStatusLabelEmpty.Size = new System.Drawing.Size(31, 17);
             this.toolStripStatusLabelEmpty.Text = "        ";
+            // 
+            // toolStripStatusLabelLoadWords
+            // 
+            this.toolStripStatusLabelLoadWords.Name = "toolStripStatusLabelLoadWords";
+            this.toolStripStatusLabelLoadWords.Size = new System.Drawing.Size(83, 17);
+            this.toolStripStatusLabelLoadWords.Text = "Загрузка слов:";
+            // 
+            // progressBarLoadWords
+            // 
+            this.progressBarLoadWords.Name = "progressBarLoadWords";
+            this.progressBarLoadWords.Size = new System.Drawing.Size(100, 16);
             // 
             // MainForm
             // 
