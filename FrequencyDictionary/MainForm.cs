@@ -52,17 +52,17 @@ namespace FrequencyDictionary
 
             wordCountPairs = new Dictionary<string, int>();
 
-            //HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
+            HttpWebRequest request = WebRequest.Create(RequestUriString) as HttpWebRequest;
 
-            //HttpWebResponse response = request.GetResponse() as HttpWebResponse;
-            //StreamReader reader = new StreamReader(
-            //    response.GetResponseStream());
+            HttpWebResponse response = request.GetResponse() as HttpWebResponse;
+            StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.Default);
             //textBoxDictionary.Text = reader.ReadToEnd();
-            //string page = reader.ReadToEnd();
+            string page = reader.ReadToEnd();
 
-            WebClient webClient = new WebClient();
-            byte[] data = webClient.DownloadData(RequestUriString);
-            string page = Encoding.Default.GetString(data);
+            reader.Close();
+            //WebClient webClient = new WebClient();
+            //byte[] data = webClient.DownloadData(RequestUriString);
+            //string page = Encoding.Default.GetString(data);
 
             string pattern = @">(?!#|[ ]|\.)(.[^(<|>)]*)<";
 
